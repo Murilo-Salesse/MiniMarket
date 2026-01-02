@@ -12,6 +12,22 @@ public class Stores {
 	private String address;
 	private String phone;
 	private LocalDateTime createdAt;
+	
+	
+
+	public Stores() {
+		super();
+	}
+
+	public Stores(UUID id, String name, String cnpj, String address, String phone, LocalDateTime createdAt) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.cnpj = cnpj;
+		this.address = address;
+		this.phone = phone;
+		this.createdAt = createdAt;
+	}
 
 	public UUID getId() {
 		return id;
