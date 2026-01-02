@@ -1,0 +1,35 @@
+services:
+    postgres:
+        image: postgres:16
+        container_name: minimarket-db
+        environment:
+            POSTGRES_DB: minimarket
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+        ports:
+            - "5440:5432"
+        volumes:
+            - minimarket_data:/var/lib/postgresql/data
+        networks:
+            - minimarket-net
+
+    app:
+        build: .
+        container_name: minimarket-app
+        ports:
+            - "8080:8080"
+        environment:
+            SPRING_DATASOURCE_URL: ${URL_DB}
+            SPRING_DATASOURCE_USERNAME: ${USER_DB}
+            SPRING_DATASOURCE_PASSWORD: ${PASSWORD_DB}
+            SPRING_JPA_HIBERNATE_DDL_AUTO: update
+        depends_on:
+            - postgres
+        networks:
+            - minimarket-net
+
+volumes:
+    minimarket_data:
+
+networks:
+    minimarket-net:
