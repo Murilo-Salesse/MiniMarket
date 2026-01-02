@@ -6,5 +6,5 @@ import io.github.com.salesse.MiniMarket.core.entities.Stores;
 
 public interface UpdateStoreUseCase {
 
-	Stores update(UUID id, Stores store);
+	Stores execute(UUID id, Stores store);
 }

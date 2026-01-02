@@ -11,22 +11,20 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class StoresMapper {
 
-	// Converte de Request para Entidade Pura
 	public static Stores toDomain(StoreRequest request) {
-
-		return new Stores(null, request.getName(), request.getCnpj(), request.getAddress(), request.getPhone(), null);
+		return new Stores(null, request.getName(), request.getCnpj(), request.getAddress(), request.getPhone(), null,
+				null, true);
 	}
 
 	public static Stores toDomain(StoreUpdateRequest request) {
-		return new Stores(null, request.getName(), null, request.getAddress(), request.getPhone(), null);
+		return new Stores(null, request.getName(), null, // CNPJ NÃO ALTERA
+				request.getAddress(), request.getPhone(), null, null, true);
 	}
 
-	// Converte Entidade pure para Request
 	public static StoreResponse toStoreResponse(Stores s) {
-
 		return new StoreResponse(s.getId(), s.getName(), s.getCnpj(), s.getAddress(), s.getPhone());
 	}
-
+	
 	public static List<StoreResponse> toStoreResponseList(List<Stores> stores) {
 		return stores.stream().map(StoresMapper::toStoreResponse).toList();
 	}

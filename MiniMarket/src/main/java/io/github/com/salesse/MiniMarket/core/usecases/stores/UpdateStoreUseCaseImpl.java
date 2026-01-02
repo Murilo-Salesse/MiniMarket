@@ -15,7 +15,7 @@ public class UpdateStoreUseCaseImpl implements UpdateStoreUseCase {
 	}
 
 	@Override
-	public Stores update(UUID id, Stores store) {
+	public Stores execute(UUID id, Stores store) {
 		return storeGateway.update(id, store);
 	}
 

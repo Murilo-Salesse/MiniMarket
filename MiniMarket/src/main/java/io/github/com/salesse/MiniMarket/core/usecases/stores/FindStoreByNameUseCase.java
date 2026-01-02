@@ -4,7 +4,7 @@ import java.util.List;
 
 import io.github.com.salesse.MiniMarket.core.entities.Stores;
 
-public interface ListAllStoresUseCase {
+public interface FindStoreByNameUseCase {
 
-	List<Stores> execute();
+	List<Stores> execute(String name);
 }

@@ -10,6 +10,8 @@ import io.github.com.salesse.MiniMarket.core.usecases.stores.DeleteStoreUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.DeleteStoreUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.FindStoreByIdUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.FindStoreByIdUseCaseImpl;
+import io.github.com.salesse.MiniMarket.core.usecases.stores.FindStoreByNameUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.stores.FindStoreByNameUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.ListAllStoresUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.ListAllStoresUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.UpdateStoreUseCase;
@@ -36,6 +38,11 @@ public class BeanConfiguration {
 	@Bean
 	ListAllStoresUseCase listAllStoresUseCase(StoreGateway storeGateway) {
 		return new ListAllStoresUseCaseImpl(storeGateway);
+	}
+	
+	@Bean
+	FindStoreByNameUseCase findStoreByNameUseCase(StoreGateway storeGateway) {
+		return new FindStoreByNameUseCaseImpl(storeGateway);
 	}
 
 	@Bean

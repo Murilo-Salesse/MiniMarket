@@ -1,5 +1,6 @@
 package io.github.com.salesse.MiniMarket.infrastructure.gateway;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -31,7 +32,7 @@ public class StoresRepositoryGateway implements StoreGateway {
 	@Override
 	public Stores findById(UUID id) {
 
-		StoresEntity foundedStore = storesRepository.findById(id)
+		StoresEntity foundedStore = storesRepository.findActiveById(id)
 				.orElseThrow(() -> new RuntimeException("ID não encontrado"));
 
 		return StoresEntityMapper.toDomain(foundedStore);
@@ -39,16 +40,19 @@ public class StoresRepositoryGateway implements StoreGateway {
 
 	@Override
 	public Void delete(UUID id) {
-		if (!storesRepository.existsById(id)) {
-			throw new RuntimeException("Loja não encontrado");
-		}
-		storesRepository.deleteById(id);
+		StoresEntity store = storesRepository.findActiveById(id)
+				.orElseThrow(() -> new RuntimeException("Loja não encontrada"));
+
+		store.setActive(false);
+		store.setDeletedAt(LocalDateTime.now());
+
+		storesRepository.save(store);
 		return null;
 	}
 
 	@Override
 	public Stores update(UUID id, Stores store) {
-		StoresEntity foundedStore = storesRepository.findById(id)
+		StoresEntity foundedStore = storesRepository.findActiveById(id)
 				.orElseThrow(() -> new RuntimeException("ID não encontrado"));
 
 		foundedStore.setName(store.getName());
@@ -62,7 +66,15 @@ public class StoresRepositoryGateway implements StoreGateway {
 
 	@Override
 	public List<Stores> listAll() {
-		return storesRepository.findAll().stream().map(StoresEntityMapper::toDomain).collect(Collectors.toList());
+		return storesRepository.findAllActive().stream().map(StoresEntityMapper::toDomain).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Stores> findByName(String name) {
+
+		return storesRepository.findStoresName(name).stream().map(StoresEntityMapper::toDomain)
+				.collect(Collectors.toList());
+
 	}
 
 }

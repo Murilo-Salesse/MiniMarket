@@ -23,24 +23,30 @@ import lombok.NoArgsConstructor;
 public class StoresEntity {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
 
 	@Column(nullable = false)
 	private String name;
-	
+
 	@Column(nullable = false, unique = true)
 	private String cnpj;
-	
+
 	@Column(nullable = false)
 	private String address;
-	
+
 	@Column(nullable = false)
 	private String phone;
-	
+
 	@CreationTimestamp
 	@Column(name = "created_at")
-    private LocalDateTime createdAt;
+	private LocalDateTime createdAt;
+
+	@Column(name = "deleted_at")
+	private LocalDateTime deletedAt;
+
+	@Column(nullable = false)
+	private boolean active = true;
 
 	public UUID getId() {
 		return id;
@@ -89,5 +95,21 @@ public class StoresEntity {
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
-	
+
+	public LocalDateTime getDeletedAt() {
+		return deletedAt;
+	}
+
+	public void setDeletedAt(LocalDateTime deletedAt) {
+		this.deletedAt = deletedAt;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 }

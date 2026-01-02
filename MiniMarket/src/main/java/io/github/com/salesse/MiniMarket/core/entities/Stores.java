@@ -12,14 +12,15 @@ public class Stores {
 	private String address;
 	private String phone;
 	private LocalDateTime createdAt;
-	
-	
+	private LocalDateTime deletedAt;
+	private boolean active;
 
 	public Stores() {
 		super();
 	}
 
-	public Stores(UUID id, String name, String cnpj, String address, String phone, LocalDateTime createdAt) {
+	public Stores(UUID id, String name, String cnpj, String address, String phone, LocalDateTime createdAt,
+			LocalDateTime deletedAt, boolean active) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -27,6 +28,8 @@ public class Stores {
 		this.address = address;
 		this.phone = phone;
 		this.createdAt = createdAt;
+		this.deletedAt = deletedAt;
+		this.active = active;
 	}
 
 	public UUID getId() {
@@ -77,6 +80,22 @@ public class Stores {
 		this.createdAt = createdAt;
 	}
 
+	public LocalDateTime getDeletedAt() {
+		return deletedAt;
+	}
+
+	public void setDeletedAt(LocalDateTime deletedAt) {
+		this.deletedAt = deletedAt;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -97,7 +116,7 @@ public class Stores {
 	@Override
 	public String toString() {
 		return "Stores [id=" + id + ", name=" + name + ", cnpj=" + cnpj + ", address=" + address + ", phone=" + phone
-				+ ", createdAt=" + createdAt + "]";
+				+ ", createdAt=" + createdAt + ", deletedAt=" + deletedAt + ", active=" + active + "]";
 	}
 
 }

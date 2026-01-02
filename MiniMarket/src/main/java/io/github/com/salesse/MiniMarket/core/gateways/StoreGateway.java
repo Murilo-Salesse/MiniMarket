@@ -11,5 +11,6 @@ public interface StoreGateway {
 	Stores findById(UUID id);
 	Stores update(UUID id, Stores store);
 	List<Stores> listAll();
+	List<Stores> findByName(String name);
 	Void delete(UUID id);
 }
