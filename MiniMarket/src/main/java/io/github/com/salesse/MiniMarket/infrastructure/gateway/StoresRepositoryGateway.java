@@ -1,6 +1,8 @@
 package io.github.com.salesse.MiniMarket.infrastructure.gateway;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -33,6 +35,34 @@ public class StoresRepositoryGateway implements StoreGateway {
 				.orElseThrow(() -> new RuntimeException("ID não encontrado"));
 
 		return StoresEntityMapper.toDomain(foundedStore);
+	}
+
+	@Override
+	public Void delete(UUID id) {
+		if (!storesRepository.existsById(id)) {
+			throw new RuntimeException("Loja não encontrado");
+		}
+		storesRepository.deleteById(id);
+		return null;
+	}
+
+	@Override
+	public Stores update(UUID id, Stores store) {
+		StoresEntity foundedStore = storesRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("ID não encontrado"));
+
+		foundedStore.setName(store.getName());
+		foundedStore.setAddress(store.getAddress());
+		foundedStore.setPhone(store.getPhone());
+
+		storesRepository.save(foundedStore);
+
+		return StoresEntityMapper.toDomain(foundedStore);
+	}
+
+	@Override
+	public List<Stores> listAll() {
+		return storesRepository.findAll().stream().map(StoresEntityMapper::toDomain).collect(Collectors.toList());
 	}
 
 }
