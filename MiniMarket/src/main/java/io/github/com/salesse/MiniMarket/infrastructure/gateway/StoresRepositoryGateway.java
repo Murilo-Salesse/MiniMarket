@@ -1,6 +1,5 @@
 package io.github.com.salesse.MiniMarket.infrastructure.gateway;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -8,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import io.github.com.salesse.MiniMarket.core.entities.Stores;
+import io.github.com.salesse.MiniMarket.core.exceptions.NotFoundException;
 import io.github.com.salesse.MiniMarket.core.gateways.StoreGateway;
 import io.github.com.salesse.MiniMarket.infrastructure.mappers.StoresEntityMapper;
 import io.github.com.salesse.MiniMarket.infrastructure.persistence.StoresEntity;
@@ -33,27 +33,15 @@ public class StoresRepositoryGateway implements StoreGateway {
 	public Stores findById(UUID id) {
 
 		StoresEntity foundedStore = storesRepository.findActiveById(id)
-				.orElseThrow(() -> new RuntimeException("ID não encontrado"));
+				.orElseThrow(() -> new NotFoundException("ID não encontrado"));
 
 		return StoresEntityMapper.toDomain(foundedStore);
 	}
 
 	@Override
-	public Void delete(UUID id) {
-		StoresEntity store = storesRepository.findActiveById(id)
-				.orElseThrow(() -> new RuntimeException("Loja não encontrada"));
-
-		store.setActive(false);
-		store.setDeletedAt(LocalDateTime.now());
-
-		storesRepository.save(store);
-		return null;
-	}
-
-	@Override
 	public Stores update(UUID id, Stores store) {
 		StoresEntity foundedStore = storesRepository.findActiveById(id)
-				.orElseThrow(() -> new RuntimeException("ID não encontrado"));
+				.orElseThrow(() -> new NotFoundException("ID não encontrado"));
 
 		foundedStore.setName(store.getName());
 		foundedStore.setAddress(store.getAddress());
@@ -75,6 +63,11 @@ public class StoresRepositoryGateway implements StoreGateway {
 		return storesRepository.findStoresName(name).stream().map(StoresEntityMapper::toDomain)
 				.collect(Collectors.toList());
 
+	}
+
+	@Override
+	public boolean existsByCnpj(String cnpj) {
+		return storesRepository.existsByCnpjAndActiveTrue(cnpj);
 	}
 
 }

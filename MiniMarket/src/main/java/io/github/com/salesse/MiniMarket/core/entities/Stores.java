@@ -119,4 +119,19 @@ public class Stores {
 				+ ", createdAt=" + createdAt + ", deletedAt=" + deletedAt + ", active=" + active + "]";
 	}
 
+	public void deactivate() {
+		if (!this.active) {
+			throw new RuntimeException("Loja já está inativa");
+		}
+		this.active = false;
+		this.deletedAt = LocalDateTime.now();
+	}
+
+	public void activate() {
+		if (this.active) {
+			throw new RuntimeException("Loja já está ativa");
+		}
+		this.active = true;
+		this.deletedAt = null;
+	}
 }

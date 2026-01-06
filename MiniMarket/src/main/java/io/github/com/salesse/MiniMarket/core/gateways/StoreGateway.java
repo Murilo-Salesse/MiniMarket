@@ -8,9 +8,14 @@ import io.github.com.salesse.MiniMarket.core.entities.Stores;
 public interface StoreGateway {
 
 	Stores create(Stores store);
+
 	Stores findById(UUID id);
+
 	Stores update(UUID id, Stores store);
+
+	boolean existsByCnpj(String cnpj);
+
 	List<Stores> listAll();
+
 	List<Stores> findByName(String name);
-	Void delete(UUID id);
 }

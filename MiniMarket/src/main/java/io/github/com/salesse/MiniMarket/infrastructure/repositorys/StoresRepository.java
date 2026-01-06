@@ -28,6 +28,8 @@ public interface StoresRepository extends JpaRepository<StoresEntity, UUID> {
 			""")
 	List<StoresEntity> findAllActive();
 
+	boolean existsByCnpjAndActiveTrue(String cnpj);
+
 	@Query("""
 			    select s
 			    from StoresEntity s

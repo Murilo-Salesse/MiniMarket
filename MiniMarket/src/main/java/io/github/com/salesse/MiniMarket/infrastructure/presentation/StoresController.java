@@ -24,6 +24,7 @@ import io.github.com.salesse.MiniMarket.core.usecases.stores.FindStoreByNameUseC
 import io.github.com.salesse.MiniMarket.core.usecases.stores.ListAllStoresUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.UpdateStoreUseCase;
 import io.github.com.salesse.MiniMarket.infrastructure.dtos.requests.StoreRequest;
+import io.github.com.salesse.MiniMarket.infrastructure.dtos.requests.StoreUpdateRequest;
 import io.github.com.salesse.MiniMarket.infrastructure.mappers.StoresMapper;
 import jakarta.validation.Valid;
 
@@ -62,7 +63,7 @@ public class StoresController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Map<String, Object>> findStoreById(@PathVariable("id") UUID id) {
+	public ResponseEntity<Map<String, Object>> findStoreById(@PathVariable UUID id) {
 
 		Stores foundedStore = findStoreByIdUseCase.execute(id);
 
@@ -73,7 +74,7 @@ public class StoresController {
 	}
 
 	@GetMapping("/list")
-	public ResponseEntity<?> list(@RequestParam(required = false) String name) {
+	public ResponseEntity<Map<String, Object>> list(@RequestParam(required = false) String name) {
 
 		List<Stores> stores;
 
@@ -98,8 +99,8 @@ public class StoresController {
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<Map<String, Object>> update(@PathVariable("id") UUID id,
-			@Valid @RequestBody StoreRequest request) {
+	public ResponseEntity<Map<String, Object>> update(@PathVariable UUID id,
+			@Valid @RequestBody StoreUpdateRequest request) {
 
 		Stores newStore = updateStoreUseCase.execute(id, StoresMapper.toDomain(request));
 
@@ -110,7 +111,7 @@ public class StoresController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Map<String, Object>> delete(@PathVariable("id") UUID id) {
+	public ResponseEntity<Map<String, Object>> delete(@PathVariable UUID id) {
 		deleteStoreUseCase.execute(id);
 
 		Map<String, Object> data = Map.of("message", "Loja deletada com sucesso.");
