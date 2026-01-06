@@ -16,27 +16,33 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "stores")
+@Table(name = "users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StoresEntity {
+public class UserEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
 
+	@Column(name = "store_id", nullable = false)
+	private UUID storeId;
+
 	@Column(nullable = false)
 	private String name;
 
 	@Column(nullable = false, unique = true)
-	private String cnpj;
-
-	@Column(nullable = false)
-	private String address;
+	private String email;
 
 	@Column(nullable = false)
 	private String phone;
+
+	@Column(nullable = false)
+	private String password;
+
+	@Column(nullable = false)
+	private boolean active = true;
 
 	@CreationTimestamp
 	@Column(name = "created_at")
@@ -45,15 +51,20 @@ public class StoresEntity {
 	@Column(name = "deleted_at")
 	private LocalDateTime deletedAt;
 
-	@Column(nullable = false)
-	private boolean active = true;
-
 	public UUID getId() {
 		return id;
 	}
 
 	public void setId(UUID id) {
 		this.id = id;
+	}
+
+	public UUID getStoreId() {
+		return storeId;
+	}
+
+	public void setStoreId(UUID storeId) {
+		this.storeId = storeId;
 	}
 
 	public String getName() {
@@ -64,20 +75,12 @@ public class StoresEntity {
 		this.name = name;
 	}
 
-	public String getCnpj() {
-		return cnpj;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPhone() {
@@ -86,6 +89,22 @@ public class StoresEntity {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public LocalDateTime getCreatedAt() {
@@ -103,13 +122,7 @@ public class StoresEntity {
 	public void setDeletedAt(LocalDateTime deletedAt) {
 		this.deletedAt = deletedAt;
 	}
-
-	public boolean isActive() {
-		return active;
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-
+	
+	
+	
 }

@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import io.github.com.salesse.MiniMarket.core.gateways.StoreGateway;
+import io.github.com.salesse.MiniMarket.core.gateways.UserGateway;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.CreateStoreUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.CreateStoreUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.DeleteStoreUseCase;
@@ -16,6 +17,8 @@ import io.github.com.salesse.MiniMarket.core.usecases.stores.ListAllStoresUseCas
 import io.github.com.salesse.MiniMarket.core.usecases.stores.ListAllStoresUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.UpdateStoreUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.UpdateStoreUseCaseImpl;
+import io.github.com.salesse.MiniMarket.core.usecases.users.CreateUserUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.users.CreateUserUseCaseImpl;
 
 @Configuration
 public class BeanConfiguration {
@@ -39,7 +42,7 @@ public class BeanConfiguration {
 	ListAllStoresUseCase listAllStoresUseCase(StoreGateway storeGateway) {
 		return new ListAllStoresUseCaseImpl(storeGateway);
 	}
-	
+
 	@Bean
 	FindStoreByNameUseCase findStoreByNameUseCase(StoreGateway storeGateway) {
 		return new FindStoreByNameUseCaseImpl(storeGateway);
@@ -48,5 +51,10 @@ public class BeanConfiguration {
 	@Bean
 	DeleteStoreUseCase deleteStoreUseCase(StoreGateway storeGateway) {
 		return new DeleteStoreUseCaseImpl(storeGateway);
+	}
+
+	@Bean
+	CreateUserUseCase createUserUseCase(UserGateway userGateway) {
+		return new CreateUserUseCaseImpl(userGateway);
 	}
 }

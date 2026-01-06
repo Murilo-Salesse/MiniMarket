@@ -57,6 +57,13 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.badRequest().body(response);
 	}
 
+	@ExceptionHandler(BusinessRuleException.class)
+	public ResponseEntity<Map<String, Object>> handleBusinessRule(BusinessRuleException ex) {
+		Map<String, Object> response = Map.of("timestamp", LocalDateTime.now().toString(), "status", 409, "error",
+				"Business Rule Violation", "message", ex.getMessage());
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+	}
+
 	@ExceptionHandler(NoHandlerFoundException.class)
 	public ResponseEntity<Map<String, Object>> handleEndpointNotFound(NoHandlerFoundException ex) {
 		Map<String, Object> response = Map.of("timestamp", LocalDateTime.now().toString(), "status", 404, "error",

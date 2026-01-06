@@ -8,33 +8,33 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import io.github.com.salesse.MiniMarket.infrastructure.persistence.StoresEntity;
+import io.github.com.salesse.MiniMarket.infrastructure.persistence.StoreEntity;
 
 @Repository
-public interface StoresRepository extends JpaRepository<StoresEntity, UUID> {
+public interface StoreRepository extends JpaRepository<StoreEntity, UUID> {
 
 	@Query("""
 			    select s
-			    from StoresEntity s
+			    from StoreEntity s
 			    where s.active = true
 			      and upper(trim(s.name)) like upper(concat('%', ?1, '%'))
 			""")
-	List<StoresEntity> findStoresName(String name);
+	List<StoreEntity> findStoresName(String name);
 
 	@Query("""
 			    select s
-			    from StoresEntity s
+			    from StoreEntity s
 			    where s.active = true
 			""")
-	List<StoresEntity> findAllActive();
+	List<StoreEntity> findAllActive();
 
 	boolean existsByCnpjAndActiveTrue(String cnpj);
 
 	@Query("""
 			    select s
-			    from StoresEntity s
+			    from StoreEntity s
 			    where s.id = :id
 			      and s.active = true
 			""")
-	Optional<StoresEntity> findActiveById(UUID id);
+	Optional<StoreEntity> findActiveById(UUID id);
 }

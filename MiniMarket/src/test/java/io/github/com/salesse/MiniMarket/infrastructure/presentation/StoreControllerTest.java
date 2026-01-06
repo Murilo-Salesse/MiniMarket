@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import tools.jackson.databind.json.JsonMapper;
 
-import io.github.com.salesse.MiniMarket.core.entities.Stores;
+import io.github.com.salesse.MiniMarket.core.entities.Store;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.CreateStoreUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.DeleteStoreUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.FindStoreByIdUseCase;
@@ -32,8 +32,8 @@ import io.github.com.salesse.MiniMarket.core.usecases.stores.ListAllStoresUseCas
 import io.github.com.salesse.MiniMarket.core.usecases.stores.UpdateStoreUseCase;
 import io.github.com.salesse.MiniMarket.infrastructure.dtos.requests.StoreRequest;
 
-@WebMvcTest(StoresController.class)
-class StoresControllerTest {
+@WebMvcTest(StoreController.class)
+class StoreControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -69,7 +69,7 @@ class StoresControllerTest {
 		request.setAddress("Rua Central");
 		request.setPhone("11999999999");
 
-		Stores store = new Stores(UUID.randomUUID(), "Minha Loja", "36.291.365/0001-60", "Rua Central", "11999999999",
+		Store store = new Store(UUID.randomUUID(), "Minha Loja", "36.291.365/0001-60", "Rua Central", "11999999999",
 				LocalDateTime.now(), null, true);
 
 		when(createStoreUseCase.execute(any())).thenReturn(store);
@@ -84,7 +84,7 @@ class StoresControllerTest {
 	@Description("Deve listar todas as lojas")
 	void shouldListAllStoresSuccessfully() throws Exception {
 		// Arrange
-		Stores store = new Stores(UUID.randomUUID(), "Minha Loja", "11.782.333/0001-36", "Rua Central", "11999999999",
+		Store store = new Store(UUID.randomUUID(), "Minha Loja", "11.782.333/0001-36", "Rua Central", "11999999999",
 				LocalDateTime.now(), null, true);
 
 		when(listAllStoresUseCase.execute()).thenReturn(List.of(store));
@@ -99,7 +99,7 @@ class StoresControllerTest {
 	@Description("Deve listar loja por nome")
 	void shouldListStoreByNameSuccessfully() throws Exception {
 		// Arrange
-		Stores store = new Stores(UUID.randomUUID(), "Minha Loja", "11.782.333/0001-36", "Rua Central", "11999999999",
+		Store store = new Store(UUID.randomUUID(), "Minha Loja", "11.782.333/0001-36", "Rua Central", "11999999999",
 				LocalDateTime.now(), null, true);
 
 		when(findStoreByNameUseCase.execute(store.getName())).thenReturn(List.of(store));
@@ -114,7 +114,7 @@ class StoresControllerTest {
 	@Description("Deve listar loja por ID")
 	void shouldListStoreByIdSuccessfully() throws Exception {
 		// Arrange
-		Stores store = new Stores(UUID.randomUUID(), "Minha Loja", "11.782.333/0001-36", "Rua Central", "11999999999",
+		Store store = new Store(UUID.randomUUID(), "Minha Loja", "11.782.333/0001-36", "Rua Central", "11999999999",
 				LocalDateTime.now(), null, true);
 
 		when(findStoreByIdUseCase.execute(store.getId())).thenReturn(store);
@@ -136,10 +136,10 @@ class StoresControllerTest {
 		request.setAddress("Rua Central Atualizada");
 		request.setPhone("11988887777");
 
-		Stores updatedStore = new Stores(storeId, "Minha Loja Atualizada", "11.782.333/0001-36",
+		Store updatedStore = new Store(storeId, "Minha Loja Atualizada", "11.782.333/0001-36",
 				"Rua Central Atualizada", "11988887777", LocalDateTime.now(), null, true);
 
-		when(updateStoreUseCase.execute(any(UUID.class), any(Stores.class))).thenReturn(updatedStore);
+		when(updateStoreUseCase.execute(any(UUID.class), any(Store.class))).thenReturn(updatedStore);
 
 		// Act & Assert
 		mockMvc.perform(put("/api/stores/update/" + storeId).contentType(MediaType.APPLICATION_JSON)
@@ -152,7 +152,7 @@ class StoresControllerTest {
 	@Description("Deve deletar loja por ID")
 	void shouldDeleteStoreByIdSuccessfully() throws Exception {
 		// Arrange
-		Stores store = new Stores(UUID.randomUUID(), "Minha Loja", "11.782.333/0001-36", "Rua Central", "11999999999",
+		Store store = new Store(UUID.randomUUID(), "Minha Loja", "11.782.333/0001-36", "Rua Central", "11999999999",
 				LocalDateTime.now(), null, true);
 
 		doNothing().when(deleteStoreUseCase).execute(store.getId());

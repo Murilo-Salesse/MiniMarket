@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.com.salesse.MiniMarket.core.entities.Stores;
+import io.github.com.salesse.MiniMarket.core.entities.Store;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.CreateStoreUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.DeleteStoreUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.FindStoreByIdUseCase;
@@ -25,12 +25,12 @@ import io.github.com.salesse.MiniMarket.core.usecases.stores.ListAllStoresUseCas
 import io.github.com.salesse.MiniMarket.core.usecases.stores.UpdateStoreUseCase;
 import io.github.com.salesse.MiniMarket.infrastructure.dtos.requests.StoreRequest;
 import io.github.com.salesse.MiniMarket.infrastructure.dtos.requests.StoreUpdateRequest;
-import io.github.com.salesse.MiniMarket.infrastructure.mappers.StoresMapper;
+import io.github.com.salesse.MiniMarket.infrastructure.mappers.StoreMapper;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/stores")
-public class StoresController {
+public class StoreController {
 
 	private final CreateStoreUseCase createStoreUseCase;
 	private final FindStoreByIdUseCase findStoreByIdUseCase;
@@ -39,7 +39,7 @@ public class StoresController {
 	private final ListAllStoresUseCase listAllStoresUseCase;
 	private final FindStoreByNameUseCase findStoreByNameUseCase;
 
-	public StoresController(CreateStoreUseCase createStoreUseCase, FindStoreByIdUseCase findStoreByIdUseCase,
+	public StoreController(CreateStoreUseCase createStoreUseCase, FindStoreByIdUseCase findStoreByIdUseCase,
 			DeleteStoreUseCase deleteStoreUseCase, UpdateStoreUseCase updateStoreUseCase,
 			ListAllStoresUseCase listAllStoresUseCase, FindStoreByNameUseCase findStoreByNameUseCase) {
 		super();
@@ -54,10 +54,10 @@ public class StoresController {
 	@PostMapping("/create")
 	public ResponseEntity<Map<String, Object>> createStore(@Valid @RequestBody StoreRequest request) {
 
-		Stores newStore = createStoreUseCase.execute(StoresMapper.toDomain(request));
+		Store newStore = createStoreUseCase.execute(StoreMapper.toDomain(request));
 
 		Map<String, Object> data = Map.of("message", "Loja criada com sucesso.", "store",
-				StoresMapper.toStoreResponse(newStore));
+				StoreMapper.toStoreResponse(newStore));
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("data", data));
 	}
@@ -65,10 +65,10 @@ public class StoresController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Map<String, Object>> findStoreById(@PathVariable UUID id) {
 
-		Stores foundedStore = findStoreByIdUseCase.execute(id);
+		Store foundedStore = findStoreByIdUseCase.execute(id);
 
 		Map<String, Object> data = Map.of("message", "Loja encontrada com sucesso.", "store",
-				StoresMapper.toStoreResponse(foundedStore));
+				StoreMapper.toStoreResponse(foundedStore));
 
 		return ResponseEntity.ok(Map.of("data", data));
 	}
@@ -76,7 +76,7 @@ public class StoresController {
 	@GetMapping("/list")
 	public ResponseEntity<Map<String, Object>> list(@RequestParam(required = false) String name) {
 
-		List<Stores> stores;
+		List<Store> stores;
 
 		if (name != null) {
 			stores = findStoreByNameUseCase.execute(name);
@@ -84,16 +84,16 @@ public class StoresController {
 			stores = listAllStoresUseCase.execute();
 		}
 
-		return ResponseEntity.ok(Map.of("data", StoresMapper.toStoreResponseList(stores)));
+		return ResponseEntity.ok(Map.of("data", StoreMapper.toStoreResponseList(stores)));
 	}
 
 	@GetMapping("/all")
 	public ResponseEntity<Map<String, Object>> list() {
 
-		List<Stores> list = listAllStoresUseCase.execute();
+		List<Store> list = listAllStoresUseCase.execute();
 
 		Map<String, Object> data = Map.of("message", "Loja(s) encontrada(s) com sucesso.", "stores",
-				StoresMapper.toStoreResponseList(list));
+				StoreMapper.toStoreResponseList(list));
 
 		return ResponseEntity.ok(Map.of("data", data));
 	}
@@ -102,10 +102,10 @@ public class StoresController {
 	public ResponseEntity<Map<String, Object>> update(@PathVariable UUID id,
 			@Valid @RequestBody StoreUpdateRequest request) {
 
-		Stores newStore = updateStoreUseCase.execute(id, StoresMapper.toDomain(request));
+		Store newStore = updateStoreUseCase.execute(id, StoreMapper.toDomain(request));
 
 		Map<String, Object> data = Map.of("message", "Loja alterada com sucesso.", "store",
-				StoresMapper.toStoreResponse(newStore));
+				StoreMapper.toStoreResponse(newStore));
 
 		return ResponseEntity.status(HttpStatus.OK).body(Map.of("data", data));
 	}

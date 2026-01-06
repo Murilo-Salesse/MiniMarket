@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Stores {
+import io.github.com.salesse.MiniMarket.core.exceptions.BusinessRuleException;
+
+public class Store {
 
 	private UUID id;
 	private String name;
@@ -15,11 +17,11 @@ public class Stores {
 	private LocalDateTime deletedAt;
 	private boolean active;
 
-	public Stores() {
+	public Store() {
 		super();
 	}
 
-	public Stores(UUID id, String name, String cnpj, String address, String phone, LocalDateTime createdAt,
+	public Store(UUID id, String name, String cnpj, String address, String phone, LocalDateTime createdAt,
 			LocalDateTime deletedAt, boolean active) {
 		super();
 		this.id = id;
@@ -109,7 +111,7 @@ public class Stores {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Stores other = (Stores) obj;
+		Store other = (Store) obj;
 		return Objects.equals(id, other.id);
 	}
 
@@ -121,17 +123,9 @@ public class Stores {
 
 	public void deactivate() {
 		if (!this.active) {
-			throw new RuntimeException("Loja já está inativa");
+			throw new BusinessRuleException("Loja já está inativa");
 		}
 		this.active = false;
 		this.deletedAt = LocalDateTime.now();
-	}
-
-	public void activate() {
-		if (this.active) {
-			throw new RuntimeException("Loja já está ativa");
-		}
-		this.active = true;
-		this.deletedAt = null;
 	}
 }

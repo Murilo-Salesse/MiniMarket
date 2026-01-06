@@ -7,7 +7,8 @@ import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
-import io.github.com.salesse.MiniMarket.core.entities.Stores;
+import io.github.com.salesse.MiniMarket.core.entities.Store;
+import io.github.com.salesse.MiniMarket.core.exceptions.BusinessRuleException;
 
 /*
  * Regras de negócio internas
@@ -24,7 +25,7 @@ class StoresTest {
 	@Test
 	void shouldDeactivateStoreSuccessfully() {
 		// Arrange
-		Stores store = new Stores(UUID.randomUUID(), "Minha Loja", "12.345.678/0001-99", "Rua Central", "11999999999",
+		Store store = new Store(UUID.randomUUID(), "Minha Loja", "12.345.678/0001-99", "Rua Central", "11999999999",
 				LocalDateTime.now(), null, true);
 
 		// Act
@@ -37,13 +38,9 @@ class StoresTest {
 
 	@Test
 	void shouldThrowExceptionWhenDeactivatingInactiveStore() {
-		// Arrange
-		Stores store = new Stores(UUID.randomUUID(), "Minha Loja", "12.345.678/0001-99", "Rua Central", "11999999999",
-				LocalDateTime.now(), LocalDateTime.now(), false);
+		Store store = new Store();
+		store.setActive(false);
 
-		// Act + Assert
-		RuntimeException exception = assertThrows(RuntimeException.class, store::deactivate);
-
-		assertEquals("Loja já está inativa", exception.getMessage());
+		assertThrows(BusinessRuleException.class, store::deactivate);
 	}
 }

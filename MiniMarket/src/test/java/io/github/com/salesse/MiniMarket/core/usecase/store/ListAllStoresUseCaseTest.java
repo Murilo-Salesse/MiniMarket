@@ -17,7 +17,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Description;
 
-import io.github.com.salesse.MiniMarket.core.entities.Stores;
+import io.github.com.salesse.MiniMarket.core.entities.Store;
 import io.github.com.salesse.MiniMarket.core.gateways.StoreGateway;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.ListAllStoresUseCaseImpl;
 
@@ -34,18 +34,18 @@ public class ListAllStoresUseCaseTest {
 	@Description("Listar todas as lojas")
 	void shouldListAllStoresSuccessfully() {
 		// Arrange
-		Stores storeOne = new Stores(UUID.randomUUID(), "Minha Loja", "12.345.678/0001-99", "Rua Central",
+		Store storeOne = new Store(UUID.randomUUID(), "Minha Loja", "12.345.678/0001-99", "Rua Central",
 				"11999999999", LocalDateTime.now(), null, true);
 
-		Stores storeTwo = new Stores(UUID.randomUUID(), "Minha Loja Dois", "13.215.438/0001-44", "Rua Central Dois",
+		Store storeTwo = new Store(UUID.randomUUID(), "Minha Loja Dois", "13.215.438/0001-44", "Rua Central Dois",
 				"11999999998", LocalDateTime.now(), null, true);
 
-		List<Stores> stores = List.of(storeOne, storeTwo);
+		List<Store> stores = List.of(storeOne, storeTwo);
 
 		when(storeGateway.listAll()).thenReturn(stores);
 
 		// Act
-		List<Stores> result = listAllStoresUseCase.execute();
+		List<Store> result = listAllStoresUseCase.execute();
 
 		// Assert
 		assertNotNull(result);

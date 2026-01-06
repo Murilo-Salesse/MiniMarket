@@ -17,7 +17,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Description;
 
-import io.github.com.salesse.MiniMarket.core.entities.Stores;
+import io.github.com.salesse.MiniMarket.core.entities.Store;
 import io.github.com.salesse.MiniMarket.core.gateways.StoreGateway;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.FindStoreByNameUseCaseImpl;
 
@@ -34,15 +34,15 @@ public class FindStoreByNameUseCaseTest {
 	@Description("Buscar lojas pelo nome")
 	void shouldFindStoreByNameSuccessfully() {
 		// Arrange
-		Stores storeOne = new Stores(UUID.randomUUID(), "Minha Loja", "12.345.678/0001-99", "Rua Central",
+		Store storeOne = new Store(UUID.randomUUID(), "Minha Loja", "12.345.678/0001-99", "Rua Central",
 				"11999999999", LocalDateTime.now(), null, true);
 
-		List<Stores> stores = List.of(storeOne);
+		List<Store> stores = List.of(storeOne);
 
 		when(storeGateway.findByName("Minha Loja")).thenReturn(stores);
 
 		// Act
-		List<Stores> result = findStoreByNameUseCase.execute("Minha Loja");
+		List<Store> result = findStoreByNameUseCase.execute("Minha Loja");
 
 		// Assert
 		assertNotNull(result);

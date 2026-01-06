@@ -16,7 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Description;
 
-import io.github.com.salesse.MiniMarket.core.entities.Stores;
+import io.github.com.salesse.MiniMarket.core.entities.Store;
 import io.github.com.salesse.MiniMarket.core.gateways.StoreGateway;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.DeleteStoreUseCaseImpl;
 
@@ -35,7 +35,7 @@ class DeleteStoreUseCaseTest {
 		// Arrange
 		UUID storeId = UUID.randomUUID();
 
-		Stores store = new Stores(storeId, "Minha Loja", "12.345.678/0001-99", "Rua Central", "11999999999",
+		Store store = new Store(storeId, "Minha Loja", "12.345.678/0001-99", "Rua Central", "11999999999",
 				LocalDateTime.now(), null, true);
 
 		when(storeGateway.findById(storeId)).thenReturn(store);

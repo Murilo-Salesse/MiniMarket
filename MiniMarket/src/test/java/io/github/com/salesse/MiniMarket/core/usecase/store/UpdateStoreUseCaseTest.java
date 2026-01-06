@@ -16,7 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Description;
 
-import io.github.com.salesse.MiniMarket.core.entities.Stores;
+import io.github.com.salesse.MiniMarket.core.entities.Store;
 import io.github.com.salesse.MiniMarket.core.gateways.StoreGateway;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.UpdateStoreUseCaseImpl;
 
@@ -35,17 +35,17 @@ class UpdateStoreUseCaseTest {
 		// Arrange
 		UUID id = UUID.randomUUID();
 
-		Stores existingStore = new Stores(id, "Minha Loja", "12.345.678/0001-99", "Rua Central", "11999999999",
+		Store existingStore = new Store(id, "Minha Loja", "12.345.678/0001-99", "Rua Central", "11999999999",
 				LocalDateTime.now(), null, true);
 
-		Stores updatedStore = new Stores(id, "Minha Loja ATT", "12.345.678/0001-99", "Rua Central ATT", "11999999999",
+		Store updatedStore = new Store(id, "Minha Loja ATT", "12.345.678/0001-99", "Rua Central ATT", "11999999999",
 				existingStore.getCreatedAt(), null, true);
 
 		when(storeGateway.findById(id)).thenReturn(existingStore);
 		when(storeGateway.update(id, updatedStore)).thenReturn(updatedStore);
 
 		// Act
-		Stores result = updateStoreUseCase.execute(id, updatedStore);
+		Store result = updateStoreUseCase.execute(id, updatedStore);
 
 		// Assert
 		assertNotNull(result);

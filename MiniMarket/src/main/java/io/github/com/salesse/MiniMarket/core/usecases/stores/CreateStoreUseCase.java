@@ -1,8 +1,8 @@
 package io.github.com.salesse.MiniMarket.core.usecases.stores;
 
-import io.github.com.salesse.MiniMarket.core.entities.Stores;
+import io.github.com.salesse.MiniMarket.core.entities.Store;
 
 public interface CreateStoreUseCase {
 
-	Stores execute(Stores store);
+	Store execute(Store store);
 }

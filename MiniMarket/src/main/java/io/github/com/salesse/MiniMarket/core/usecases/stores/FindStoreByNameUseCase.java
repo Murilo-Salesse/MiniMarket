@@ -2,9 +2,9 @@ package io.github.com.salesse.MiniMarket.core.usecases.stores;
 
 import java.util.List;
 
-import io.github.com.salesse.MiniMarket.core.entities.Stores;
+import io.github.com.salesse.MiniMarket.core.entities.Store;
 
 public interface FindStoreByNameUseCase {
 
-	List<Stores> execute(String name);
+	List<Store> execute(String name);
 }

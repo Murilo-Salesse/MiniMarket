@@ -2,7 +2,7 @@ package io.github.com.salesse.MiniMarket.core.usecases.stores;
 
 import java.util.UUID;
 
-import io.github.com.salesse.MiniMarket.core.entities.Stores;
+import io.github.com.salesse.MiniMarket.core.entities.Store;
 import io.github.com.salesse.MiniMarket.core.exceptions.NotFoundException;
 import io.github.com.salesse.MiniMarket.core.gateways.StoreGateway;
 
@@ -16,9 +16,9 @@ public class UpdateStoreUseCaseImpl implements UpdateStoreUseCase {
 	}
 
 	@Override
-	public Stores execute(UUID id, Stores store) {
+	public Store execute(UUID id, Store store) {
 
-		Stores existingStore = storeGateway.findById(id);
+		Store existingStore = storeGateway.findById(id);
 
 		if (existingStore == null) {
 			throw new NotFoundException("Loja não encontrada");

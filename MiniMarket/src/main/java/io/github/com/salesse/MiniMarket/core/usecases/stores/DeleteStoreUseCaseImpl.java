@@ -2,7 +2,7 @@ package io.github.com.salesse.MiniMarket.core.usecases.stores;
 
 import java.util.UUID;
 
-import io.github.com.salesse.MiniMarket.core.entities.Stores;
+import io.github.com.salesse.MiniMarket.core.entities.Store;
 import io.github.com.salesse.MiniMarket.core.gateways.StoreGateway;
 
 public class DeleteStoreUseCaseImpl implements DeleteStoreUseCase {
@@ -17,7 +17,7 @@ public class DeleteStoreUseCaseImpl implements DeleteStoreUseCase {
 	@Override
 	public Void execute(UUID id) {
 
-		Stores store = storeGateway.findById(id);
+		Store store = storeGateway.findById(id);
 		store.deactivate();
 		storeGateway.update(id, store);
 
