@@ -19,6 +19,14 @@ import io.github.com.salesse.MiniMarket.core.usecases.stores.UpdateStoreUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.UpdateStoreUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.users.CreateUserUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.users.CreateUserUseCaseImpl;
+import io.github.com.salesse.MiniMarket.core.usecases.users.FindUserByEmailUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.users.FindUserByEmailUseCaseImpl;
+import io.github.com.salesse.MiniMarket.core.usecases.users.FindUserByIdUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.users.FindUserByIdUseCaseImpl;
+import io.github.com.salesse.MiniMarket.core.usecases.users.FindUserByNameUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.users.FindUserByNameUseCaseImpl;
+import io.github.com.salesse.MiniMarket.core.usecases.users.ListAllUsersUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.users.ListAllUsersUseCaseImpl;
 
 @Configuration
 public class BeanConfiguration {
@@ -56,5 +64,25 @@ public class BeanConfiguration {
 	@Bean
 	CreateUserUseCase createUserUseCase(UserGateway userGateway) {
 		return new CreateUserUseCaseImpl(userGateway);
+	}
+
+	@Bean
+	FindUserByIdUseCase findUserByIdUseCase(UserGateway userGateway) {
+		return new FindUserByIdUseCaseImpl(userGateway);
+	}
+
+	@Bean
+	FindUserByNameUseCase findUserByNameUseCase(UserGateway userGateway) {
+		return new FindUserByNameUseCaseImpl(userGateway);
+	}
+
+	@Bean
+	FindUserByEmailUseCase findUserByEmailUseCase(UserGateway userGateway) {
+		return new FindUserByEmailUseCaseImpl(userGateway);
+	}
+
+	@Bean
+	ListAllUsersUseCase listAllUsersUseCase(UserGateway userGateway) {
+		return new ListAllUsersUseCaseImpl(userGateway);
 	}
 }
