@@ -9,7 +9,10 @@ public interface UserGateway {
 
 	User create(User user);
 	User findById(UUID id);
+	User update(User user, UUID id);
 	List<User> listAll();
 	List<User> findByName(String name);
 	List<User> findByEmail(String mail);
+    boolean existsByEmail(String email);
+    boolean existsByPhone(String phone);
 }

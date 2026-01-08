@@ -19,6 +19,8 @@ import io.github.com.salesse.MiniMarket.core.usecases.stores.UpdateStoreUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.UpdateStoreUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.users.CreateUserUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.users.CreateUserUseCaseImpl;
+import io.github.com.salesse.MiniMarket.core.usecases.users.DeleteUserByIdUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.users.DeleteUserByIdUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.users.FindUserByEmailUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.users.FindUserByEmailUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.users.FindUserByIdUseCase;
@@ -27,6 +29,8 @@ import io.github.com.salesse.MiniMarket.core.usecases.users.FindUserByNameUseCas
 import io.github.com.salesse.MiniMarket.core.usecases.users.FindUserByNameUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.users.ListAllUsersUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.users.ListAllUsersUseCaseImpl;
+import io.github.com.salesse.MiniMarket.core.usecases.users.UpdateUserUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.users.UpdateUserUseCaseImpl;
 
 @Configuration
 public class BeanConfiguration {
@@ -84,5 +88,15 @@ public class BeanConfiguration {
 	@Bean
 	ListAllUsersUseCase listAllUsersUseCase(UserGateway userGateway) {
 		return new ListAllUsersUseCaseImpl(userGateway);
+	}
+
+	@Bean
+	UpdateUserUseCase updateUserUseCase(UserGateway userGateway) {
+		return new UpdateUserUseCaseImpl(userGateway);
+	}
+
+	@Bean
+	DeleteUserByIdUseCase deleteUserByIdUseCase(UserGateway userGateway) {
+		return new DeleteUserByIdUseCaseImpl(userGateway);
 	}
 }

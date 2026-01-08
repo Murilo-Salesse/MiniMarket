@@ -25,6 +25,13 @@ public class UserRepositoryGateway implements UserGateway {
 
 	@Override
 	public User create(User user) {
+
+		/*
+		 * Aqui ele esta convertendo o dominio puro para a entity do banco =
+		 * userEntityMapper.toEntity(user)) e da um save no banco
+		 * UserEntityMapper.toDomain = Converte de UserEntity para Dominio puro
+		 */
+
 		return UserEntityMapper.toDomain(userRespository.save(UserEntityMapper.toEntity(user)));
 	}
 
@@ -54,6 +61,33 @@ public class UserRepositoryGateway implements UserGateway {
 	public List<User> listAll() {
 
 		return userRespository.findAll().stream().map(UserEntityMapper::toDomain).collect(Collectors.toList());
+	}
+
+	@Override
+	public User update(User user, UUID id) {
+		UserEntity foundedUser = userRespository.findActiveById(id)
+				.orElseThrow(() -> new NotFoundException("ID não encontrado"));
+
+		foundedUser.setName(user.getName());
+		foundedUser.setEmail(user.getEmail());
+		foundedUser.setPhone(user.getPhone());
+		foundedUser.setPassword(user.getPassword());
+		foundedUser.setActive(user.getActive());
+		foundedUser.setDeletedAt(user.getDeletedAt());
+
+		userRespository.save(foundedUser);
+
+		return UserEntityMapper.toDomain(foundedUser);
+	}
+
+	@Override
+	public boolean existsByEmail(String email) {
+		return userRespository.existsByEmail(email);
+	}
+
+	@Override
+	public boolean existsByPhone(String phone) {
+		return userRespository.existsByPhone(phone);
 	}
 
 }

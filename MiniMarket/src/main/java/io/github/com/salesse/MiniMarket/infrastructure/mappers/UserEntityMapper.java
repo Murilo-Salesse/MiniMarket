@@ -7,7 +7,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class UserEntityMapper {
 
-	// Converte de UserDto para Entidade do banco
+	// Converte de UserEntity para Dominio puro
 	public static User toDomain(UserEntity entity) {
 		return new User(entity.getId(), entity.getStoreId(), entity.getName(), entity.getEmail(), entity.getPhone(),
 				entity.getPassword(), entity.isActive(), entity.getCreatedAt(), entity.getDeletedAt());

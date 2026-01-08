@@ -36,4 +36,8 @@ public interface UserRespository extends JpaRepository<UserEntity, UUID> {
 			      and upper(trim(u.email)) like upper(concat('%', ?1, '%'))
 			""")
 	List<UserEntity> findUserEmail(String email);
+
+	boolean existsByEmail(String email);
+
+	boolean existsByPhone(String phone);
 }

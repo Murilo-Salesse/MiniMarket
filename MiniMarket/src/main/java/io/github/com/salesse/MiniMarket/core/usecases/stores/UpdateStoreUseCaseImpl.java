@@ -24,7 +24,6 @@ public class UpdateStoreUseCaseImpl implements UpdateStoreUseCase {
 			throw new NotFoundException("Loja não encontrada");
 		}
 
-		/* Update just allowed methods */
 		existingStore.setName(store.getName());
 		existingStore.setAddress(store.getAddress());
 		existingStore.setPhone(store.getPhone());

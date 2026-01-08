@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
+import io.github.com.salesse.MiniMarket.core.exceptions.BusinessRuleException;
+
 public class User {
 
 	private UUID id;
@@ -128,6 +130,14 @@ public class User {
 		return "Users [id=" + id + ", storeId=" + storeId + ", name=" + name + ", email=" + email + ", phone=" + phone
 				+ ", password=" + password + ", active=" + active + ", createdAt=" + createdAt + ", deletedAt="
 				+ deletedAt + "]";
+	}
+
+	public void deactivate() {
+		if (!this.active) {
+			throw new BusinessRuleException("Usuário já está inativo");
+		}
+		this.active = false;
+		this.deletedAt = LocalDateTime.now();
 	}
 
 }
