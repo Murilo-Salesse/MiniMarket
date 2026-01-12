@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,6 +53,7 @@ public class StoreController {
 	}
 
 	@PostMapping("/create")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Map<String, Object>> createStore(@Valid @RequestBody StoreRequest request) {
 
 		Store newStore = createStoreUseCase.execute(StoreMapper.toDomain(request));
@@ -63,6 +65,7 @@ public class StoreController {
 	}
 
 	@GetMapping("/{id}")
+	@PreAuthorize("hasAnyRole('ADMIN', 'FUNCIONARIO')")
 	public ResponseEntity<Map<String, Object>> findStoreById(@PathVariable UUID id) {
 
 		Store foundedStore = findStoreByIdUseCase.execute(id);
@@ -74,6 +77,7 @@ public class StoreController {
 	}
 
 	@GetMapping("/list")
+	@PreAuthorize("hasAnyRole('ADMIN', 'FUNCIONARIO')")
 	public ResponseEntity<Map<String, Object>> list(@RequestParam(required = false) String name) {
 
 		List<Store> stores;
@@ -88,6 +92,7 @@ public class StoreController {
 	}
 
 	@GetMapping("/all")
+	@PreAuthorize("hasAnyRole('ADMIN', 'FUNCIONARIO')")
 	public ResponseEntity<Map<String, Object>> list() {
 
 		List<Store> list = listAllStoresUseCase.execute();
@@ -99,6 +104,7 @@ public class StoreController {
 	}
 
 	@PutMapping("/update/{id}")
+	@PreAuthorize("hasAnyRole('ADMIN', 'FUNCIONARIO')")
 	public ResponseEntity<Map<String, Object>> update(@PathVariable UUID id,
 			@Valid @RequestBody StoreUpdateRequest request) {
 
@@ -111,6 +117,7 @@ public class StoreController {
 	}
 
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Map<String, Object>> delete(@PathVariable UUID id) {
 		deleteStoreUseCase.execute(id);
 

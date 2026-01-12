@@ -17,25 +17,24 @@ public interface UserRespository extends JpaRepository<UserEntity, UUID> {
 			    select u
 			    from UserEntity u
 			    where u.id = :id
-			      and u.active = true
 			""")
 	Optional<UserEntity> findActiveById(UUID id);
 
 	@Query("""
 			    select u
 			    from UserEntity u
-			    where u.active = true
-			      and upper(trim(u.name)) like upper(concat('%', ?1, '%'))
+			    where upper(trim(u.name)) like upper(concat('%', ?1, '%'))
 			""")
 	List<UserEntity> findUserName(String name);
 
 	@Query("""
 			    select u
 			    from UserEntity u
-			    where u.active = true
-			      and upper(trim(u.email)) like upper(concat('%', ?1, '%'))
+			    where upper(trim(u.email)) like upper(concat('%', ?1, '%'))
 			""")
 	List<UserEntity> findUserEmail(String email);
+
+	Optional<UserEntity> findByEmail(String email);
 
 	boolean existsByEmail(String email);
 

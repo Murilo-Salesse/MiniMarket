@@ -13,12 +13,12 @@ public class UserMapper {
 
 	public static User toDomain(UserRequest request) {
 		return new User(null, request.getStoreId(), request.getName(), request.getEmail(), request.getPhone(),
-				request.getPassword(), true, null, null);
+				request.getPassword(), true, null, null, null);
 	}
 
 	public static User toDomain(UserUpdateRequest request) {
 		return new User(null, null, request.getName(), request.getEmail(), request.getPhone(), request.getPassword(),
-				true, null, null);
+				true, null, null, null);
 	}
 
 	public static UserResponse toUserResponse(User s) {

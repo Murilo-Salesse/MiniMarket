@@ -2,9 +2,15 @@ package io.github.com.salesse.MiniMarket.infrastructure.beans;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+import io.github.com.salesse.MiniMarket.core.gateways.LoginGateway;
+import io.github.com.salesse.MiniMarket.core.gateways.RoleGateway;
 import io.github.com.salesse.MiniMarket.core.gateways.StoreGateway;
+import io.github.com.salesse.MiniMarket.core.gateways.TokenGateway;
 import io.github.com.salesse.MiniMarket.core.gateways.UserGateway;
+import io.github.com.salesse.MiniMarket.core.usecases.login.LoginUserUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.login.LoginUserUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.CreateStoreUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.CreateStoreUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.DeleteStoreUseCase;
@@ -66,8 +72,9 @@ public class BeanConfiguration {
 	}
 
 	@Bean
-	CreateUserUseCase createUserUseCase(UserGateway userGateway) {
-		return new CreateUserUseCaseImpl(userGateway);
+	CreateUserUseCase createUserUseCase(UserGateway userGateway, PasswordEncoder passwordEncoder,
+			RoleGateway roleGateway) {
+		return new CreateUserUseCaseImpl(userGateway, passwordEncoder, roleGateway);
 	}
 
 	@Bean
@@ -98,5 +105,11 @@ public class BeanConfiguration {
 	@Bean
 	DeleteUserByIdUseCase deleteUserByIdUseCase(UserGateway userGateway) {
 		return new DeleteUserByIdUseCaseImpl(userGateway);
+	}
+
+	@Bean
+	LoginUserUseCase loginUserUseCase(LoginGateway loginGateway, PasswordEncoder passwordEncoder,
+			TokenGateway tokenGateway) {
+		return new LoginUserUseCaseImpl(loginGateway, passwordEncoder, tokenGateway);
 	}
 }

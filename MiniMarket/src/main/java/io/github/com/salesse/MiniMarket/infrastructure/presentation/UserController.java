@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -100,6 +101,7 @@ public class UserController {
 	}
 
 	@GetMapping("/{id}")
+	@PreAuthorize("hasAnyRole('ADMIN', 'FUNCIONARIO')")
 	public ResponseEntity<Map<String, Object>> findUserById(@PathVariable UUID id) {
 
 		User foundUser = findUserByIdUseCase.execute(id);
@@ -111,6 +113,7 @@ public class UserController {
 	}
 
 	@GetMapping("/list")
+	@PreAuthorize("hasAnyRole('ADMIN', 'FUNCIONARIO')")
 	public ResponseEntity<Map<String, Object>> list(@RequestParam(required = false) String name,
 			@RequestParam(required = false) String email) {
 
@@ -128,6 +131,7 @@ public class UserController {
 	}
 
 	@PutMapping("/update/{id}")
+	@PreAuthorize("hasAnyRole('ADMIN', 'FUNCIONARIO')")
 	public ResponseEntity<Map<String, Object>> update(@Valid @RequestBody UserUpdateRequest request,
 			@PathVariable UUID id) {
 
@@ -140,6 +144,7 @@ public class UserController {
 	}
 
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasAnyRole('ADMIN', 'FUNCIONARIO')")
 	public ResponseEntity<Map<String, Object>> delete(@PathVariable UUID id) {
 		deleteUserByIdUseCase.execute(id);
 

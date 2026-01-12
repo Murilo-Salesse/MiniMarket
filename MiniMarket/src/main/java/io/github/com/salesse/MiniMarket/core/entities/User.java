@@ -1,7 +1,9 @@
 package io.github.com.salesse.MiniMarket.core.entities;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 import io.github.com.salesse.MiniMarket.core.exceptions.BusinessRuleException;
@@ -15,6 +17,7 @@ public class User {
 	private String phone;
 	private String password;
 	private Boolean active;
+	private Set<Role> roles = new HashSet<>();
 	private LocalDateTime createdAt;
 	private LocalDateTime deletedAt;
 
@@ -23,7 +26,7 @@ public class User {
 	}
 
 	public User(UUID id, UUID storeId, String name, String email, String phone, String password, Boolean active,
-			LocalDateTime createdAt, LocalDateTime deletedAt) {
+			Set<Role> roles, LocalDateTime createdAt, LocalDateTime deletedAt) {
 		super();
 		this.id = id;
 		this.storeId = storeId;
@@ -32,6 +35,7 @@ public class User {
 		this.phone = phone;
 		this.password = password;
 		this.active = active;
+		this.roles = (roles == null) ? new HashSet<>() : new HashSet<>(roles);
 		this.createdAt = createdAt;
 		this.deletedAt = deletedAt;
 	}
@@ -58,6 +62,14 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 	public String getEmail() {
@@ -127,9 +139,9 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "Users [id=" + id + ", storeId=" + storeId + ", name=" + name + ", email=" + email + ", phone=" + phone
-				+ ", password=" + password + ", active=" + active + ", createdAt=" + createdAt + ", deletedAt="
-				+ deletedAt + "]";
+		return "User [id=" + id + ", storeId=" + storeId + ", name=" + name + ", email=" + email + ", phone=" + phone
+				+ ", password=" + password + ", active=" + active + ", roles=" + roles + ", createdAt=" + createdAt
+				+ ", deletedAt=" + deletedAt + "]";
 	}
 
 	public void deactivate() {
@@ -138,6 +150,30 @@ public class User {
 		}
 		this.active = false;
 		this.deletedAt = LocalDateTime.now();
+	}
+
+	public void activate() {
+		if (this.active) {
+			throw new BusinessRuleException("Usuário já está ativo");
+		}
+		this.active = true;
+	}
+
+	public void replaceRoles(Set<Role> newRoles) {
+
+		if (newRoles == null || newRoles.isEmpty()) {
+			throw new BusinessRuleException("Usuário deve possuir ao menos uma role");
+		}
+
+		this.roles.clear();
+		this.roles.addAll(newRoles);
+	}
+
+	public void verifyIfIsActive() {
+		if (!this.active) {
+			throw new BusinessRuleException("Usuário não está ativo");
+		}
+		return;
 	}
 
 }

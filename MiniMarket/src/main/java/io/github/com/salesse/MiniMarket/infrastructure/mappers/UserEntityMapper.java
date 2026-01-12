@@ -1,5 +1,7 @@
 package io.github.com.salesse.MiniMarket.infrastructure.mappers;
 
+import java.util.stream.Collectors;
+
 import io.github.com.salesse.MiniMarket.core.entities.User;
 import io.github.com.salesse.MiniMarket.infrastructure.persistence.UserEntity;
 import lombok.experimental.UtilityClass;
@@ -10,7 +12,9 @@ public class UserEntityMapper {
 	// Converte de UserEntity para Dominio puro
 	public static User toDomain(UserEntity entity) {
 		return new User(entity.getId(), entity.getStoreId(), entity.getName(), entity.getEmail(), entity.getPhone(),
-				entity.getPassword(), entity.isActive(), entity.getCreatedAt(), entity.getDeletedAt());
+				entity.getPassword(), entity.isActive(),
+				entity.getRoles().stream().map(RoleEntityMapper::toDomain).collect(Collectors.toSet()),
+				entity.getCreatedAt(), entity.getDeletedAt());
 	}
 
 	// Converte de Entidade do banco para UserDto (saida)
@@ -25,6 +29,11 @@ public class UserEntityMapper {
 		entity.setActive(user.getActive());
 		entity.setCreatedAt(user.getCreatedAt());
 		entity.setDeletedAt(user.getDeletedAt());
+
+		if (user.getRoles() != null) {
+			entity.setRoles(user.getRoles().stream().map(RoleEntityMapper::toEntity).collect(Collectors.toSet()));
+		}
+
 		return entity;
 	}
 }
