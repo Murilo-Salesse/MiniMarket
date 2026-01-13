@@ -2,10 +2,11 @@ package io.github.com.salesse.MiniMarket.infrastructure.security;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
+import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -39,7 +40,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		}
 
 		String token = authHeader.substring(7);
-
 		if (!tokenGateway.isTokenValid(token)) {
 			filterChain.doFilter(request, response);
 			return;
@@ -48,13 +48,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		String userId = tokenGateway.getUserIdFromToken(token);
 		List<String> roles = tokenGateway.getRolesFromToken(token);
 
+		String storeId = tokenGateway.getStoreIdFromToken(token).orElse(null);
+
+		
 		List<GrantedAuthority> authorities = roles.stream()
 				.map(role -> (GrantedAuthority) new SimpleGrantedAuthority("ROLE_" + role)).toList();
 
 		Authentication authentication = new UsernamePasswordAuthenticationToken(userId, null, authorities);
 
+		((AbstractAuthenticationToken) authentication).setDetails(
+			    storeId != null ? UUID.fromString(storeId) : null
+			);
+		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-
 		filterChain.doFilter(request, response);
 	}
 }

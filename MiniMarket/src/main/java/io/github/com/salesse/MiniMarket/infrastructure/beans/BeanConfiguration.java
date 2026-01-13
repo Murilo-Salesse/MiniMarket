@@ -4,11 +4,24 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import io.github.com.salesse.MiniMarket.core.gateways.CategoryGateway;
 import io.github.com.salesse.MiniMarket.core.gateways.LoginGateway;
 import io.github.com.salesse.MiniMarket.core.gateways.RoleGateway;
 import io.github.com.salesse.MiniMarket.core.gateways.StoreGateway;
 import io.github.com.salesse.MiniMarket.core.gateways.TokenGateway;
 import io.github.com.salesse.MiniMarket.core.gateways.UserGateway;
+import io.github.com.salesse.MiniMarket.core.usecases.categories.CreateCategoryUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.categories.CreateCategoryUseCaseImpl;
+import io.github.com.salesse.MiniMarket.core.usecases.categories.DeleteCategorieByIdUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.categories.DeleteCategorieByIdUseCaseImpl;
+import io.github.com.salesse.MiniMarket.core.usecases.categories.FindCategoryByDescUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.categories.FindCategoryByDescUseCaseImpl;
+import io.github.com.salesse.MiniMarket.core.usecases.categories.FindCategoryByIdUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.categories.FindCategoryByIdUseCaseImpl;
+import io.github.com.salesse.MiniMarket.core.usecases.categories.ListAllCategoriesUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.categories.ListAllCategoriesUseCaseImpl;
+import io.github.com.salesse.MiniMarket.core.usecases.categories.UpdateCategorieUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.categories.UpdateCategorieUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.login.LoginUserUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.login.LoginUserUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.CreateStoreUseCase;
@@ -111,5 +124,40 @@ public class BeanConfiguration {
 	LoginUserUseCase loginUserUseCase(LoginGateway loginGateway, PasswordEncoder passwordEncoder,
 			TokenGateway tokenGateway) {
 		return new LoginUserUseCaseImpl(loginGateway, passwordEncoder, tokenGateway);
+	}
+
+	@Bean
+	CreateCategoryUseCase createCategoryUseCase(CategoryGateway categoryGateway, StoreGateway storeGateway) {
+		return new CreateCategoryUseCaseImpl(categoryGateway, storeGateway);
+	}
+
+	@Bean
+	FindCategoryByIdUseCase findCategoryByIdUseCase(CategoryGateway categoryGateway) {
+		return new FindCategoryByIdUseCaseImpl(categoryGateway);
+
+	}
+
+	@Bean
+	ListAllCategoriesUseCase listAllCategoriesUseCase(CategoryGateway categoryGateway) {
+		return new ListAllCategoriesUseCaseImpl(categoryGateway);
+
+	}
+
+	@Bean
+	FindCategoryByDescUseCase findCategoryByDescUseCase(CategoryGateway categoryGateway) {
+		return new FindCategoryByDescUseCaseImpl(categoryGateway);
+
+	}
+
+	@Bean
+	UpdateCategorieUseCase updateCategorieUseCase(CategoryGateway categoryGateway) {
+		return new UpdateCategorieUseCaseImpl(categoryGateway);
+
+	}
+
+	@Bean
+	DeleteCategorieByIdUseCase deleteCategorieByIdUseCase(CategoryGateway categoryGateway) {
+		return new DeleteCategorieByIdUseCaseImpl(categoryGateway);
+
 	}
 }

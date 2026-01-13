@@ -77,7 +77,7 @@ public class StoreController {
 	}
 
 	@GetMapping("/list")
-	@PreAuthorize("hasAnyRole('ADMIN', 'FUNCIONARIO')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Map<String, Object>> list(@RequestParam(required = false) String name) {
 
 		List<Store> stores;

@@ -15,7 +15,6 @@ public class StoreUpdateRequest {
 
 	@NotBlank
 	@Size(min = 4, message = "Nome deve ter no mínimo 4 caracteres")
-
 	private String name;
 
 	@NotBlank

@@ -13,4 +13,5 @@ public interface StoreGateway {
 	List<Store> listAll();
 	List<Store> findByName(String name);
 	boolean existsByCnpj(String cnpj);
+	boolean existsById(UUID id);
 }

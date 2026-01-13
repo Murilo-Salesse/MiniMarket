@@ -32,7 +32,7 @@ public class JwtTokenService implements TokenGateway {
 
 		return Jwts.builder().subject(user.getId().toString())
 				.claim("roles", user.getRoles().stream().map(Role::getName).toList()).claim("name", user.getName())
-				.claim("email", user.getEmail()).issuedAt(Date.from(now))
+				.claim("email", user.getEmail()).issuedAt(Date.from(now)).claim("storeId", user.getStoreId().toString())
 				.expiration(Date.from(now.plusMillis(expiration))).signWith(key, Jwts.SIG.HS256).compact();
 	}
 
@@ -74,5 +74,11 @@ public class JwtTokenService implements TokenGateway {
 	public Optional<String> getNameFromToken(String token) {
 		return Optional.ofNullable(
 				Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload().get("name", String.class));
+	}
+
+	@Override
+	public Optional<String> getStoreIdFromToken(String token) {
+		return Optional.ofNullable(Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload()
+				.get("storeId", String.class));
 	}
 }

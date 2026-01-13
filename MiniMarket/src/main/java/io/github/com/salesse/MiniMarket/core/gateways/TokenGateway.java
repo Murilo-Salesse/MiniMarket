@@ -12,5 +12,6 @@ public interface TokenGateway {
 	List<String> getRolesFromToken(String token);
 	Optional<String> getEmailFromToken(String token);
 	Optional<String> getNameFromToken(String token);
+	Optional<String> getStoreIdFromToken(String token);
 	boolean isTokenValid(String token);
 }

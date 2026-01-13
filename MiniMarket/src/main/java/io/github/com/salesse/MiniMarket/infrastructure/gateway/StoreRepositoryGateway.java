@@ -70,4 +70,9 @@ public class StoreRepositoryGateway implements StoreGateway {
 		return storesRepository.existsByCnpjAndActiveTrue(cnpj);
 	}
 
+	 @Override
+	    public boolean existsById(UUID id) {
+	        return storesRepository.existsById(id);
+	    }
+
 }

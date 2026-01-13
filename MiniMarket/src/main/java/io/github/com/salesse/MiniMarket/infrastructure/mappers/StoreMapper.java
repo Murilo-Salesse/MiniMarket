@@ -17,7 +17,7 @@ public class StoreMapper {
 	}
 
 	public static Store toDomain(StoreUpdateRequest request) {
-		return new Store(null, request.getName(), null, // CNPJ NÃO ALTERA
+		return new Store(null, request.getName(), null, 
 				request.getAddress(), request.getPhone(), null, null, true);
 	}
 
