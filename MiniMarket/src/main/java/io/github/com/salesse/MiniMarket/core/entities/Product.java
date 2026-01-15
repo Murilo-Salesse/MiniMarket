@@ -1,26 +1,36 @@
 package io.github.com.salesse.MiniMarket.core.entities;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Category {
+public class Product {
 
 	private UUID id;
 	private UUID storeId;
+	private UUID categoryId;
+	private String name;
 	private String description;
+	private BigDecimal price;
+	private Boolean active;
 	private LocalDateTime createdAt;
 	private LocalDateTime deletedAt;
 
-	public Category() {
+	public Product() {
 		super();
 	}
 
-	public Category(UUID id, UUID storeId, String description, LocalDateTime createdAt, LocalDateTime deletedAt) {
+	public Product(UUID id, UUID storeId, UUID categoryId, String name, String description, BigDecimal price,
+			Boolean active, LocalDateTime createdAt, LocalDateTime deletedAt) {
 		super();
 		this.id = id;
 		this.storeId = storeId;
+		this.categoryId = categoryId;
+		this.name = name;
 		this.description = description;
+		this.price = price;
+		this.active = active;
 		this.createdAt = createdAt;
 		this.deletedAt = deletedAt;
 	}
@@ -41,12 +51,44 @@ public class Category {
 		this.storeId = storeId;
 	}
 
+	public UUID getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(UUID categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 
 	public LocalDateTime getCreatedAt() {
@@ -78,15 +120,8 @@ public class Category {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
+		Product other = (Product) obj;
 		return Objects.equals(id, other.id);
 	}
 
-	@Override
-	public String toString() {
-		return "Category [id=" + id + ", storeId=" + storeId + ", description=" + description + ", createdAt="
-				+ createdAt + ", deletedAt=" + deletedAt + "]";
-	}
-
-	
 }

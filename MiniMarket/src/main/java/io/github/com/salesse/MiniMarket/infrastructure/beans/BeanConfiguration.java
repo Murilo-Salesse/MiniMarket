@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import io.github.com.salesse.MiniMarket.core.gateways.CategoryGateway;
 import io.github.com.salesse.MiniMarket.core.gateways.LoginGateway;
+import io.github.com.salesse.MiniMarket.core.gateways.ProductGateway;
 import io.github.com.salesse.MiniMarket.core.gateways.RoleGateway;
 import io.github.com.salesse.MiniMarket.core.gateways.StoreGateway;
 import io.github.com.salesse.MiniMarket.core.gateways.TokenGateway;
@@ -24,6 +25,8 @@ import io.github.com.salesse.MiniMarket.core.usecases.categories.UpdateCategorie
 import io.github.com.salesse.MiniMarket.core.usecases.categories.UpdateCategorieUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.login.LoginUserUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.login.LoginUserUseCaseImpl;
+import io.github.com.salesse.MiniMarket.core.usecases.products.CreateProductUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.products.CreateProductUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.CreateStoreUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.CreateStoreUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.DeleteStoreUseCase;
@@ -159,5 +162,11 @@ public class BeanConfiguration {
 	DeleteCategorieByIdUseCase deleteCategorieByIdUseCase(CategoryGateway categoryGateway) {
 		return new DeleteCategorieByIdUseCaseImpl(categoryGateway);
 
+	}
+
+	@Bean
+	CreateProductUseCase createProductUseCase(ProductGateway productGateway, StoreGateway storeGateway,
+			CategoryGateway categoryGateway) {
+		return new CreateProductUseCaseImpl(productGateway, storeGateway, categoryGateway);
 	}
 }
