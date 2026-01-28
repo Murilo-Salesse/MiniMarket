@@ -4,6 +4,7 @@ import java.util.List;
 
 import io.github.com.salesse.MiniMarket.core.entities.Product;
 import io.github.com.salesse.MiniMarket.infrastructure.dtos.requests.ProductRequest;
+import io.github.com.salesse.MiniMarket.infrastructure.dtos.requests.ProductUpdateRequest;
 import io.github.com.salesse.MiniMarket.infrastructure.dtos.responses.ProductResponse;
 import lombok.experimental.UtilityClass;
 
@@ -15,6 +16,12 @@ public class ProductMapper {
 
 		return new Product(null, request.getStoreId(), request.getCategoryId(), request.getName(),
 				request.getDescription(), request.getPrice(), true, null, null);
+	}
+
+	public static Product toDomain(ProductUpdateRequest request) {
+
+		return new Product(null, null, null, request.getName(), request.getDescription(), request.getPrice(), true,
+				null, null);
 	}
 
 	// Transforma entidade pura em response

@@ -27,6 +27,16 @@ import io.github.com.salesse.MiniMarket.core.usecases.login.LoginUserUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.login.LoginUserUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.products.CreateProductUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.products.CreateProductUseCaseImpl;
+import io.github.com.salesse.MiniMarket.core.usecases.products.DeleteProductUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.products.DeleteProductUseCaseImpl;
+import io.github.com.salesse.MiniMarket.core.usecases.products.FindProductByIdUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.products.FindProductByIdUseCaseImpl;
+import io.github.com.salesse.MiniMarket.core.usecases.products.FindProductByNameUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.products.FindProductByNameUseCaseImpl;
+import io.github.com.salesse.MiniMarket.core.usecases.products.ListAllProductsUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.products.ListAllProductsUseCaseImpl;
+import io.github.com.salesse.MiniMarket.core.usecases.products.UpdateProductUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.products.UpdateProductUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.CreateStoreUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.CreateStoreUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.DeleteStoreUseCase;
@@ -168,5 +178,30 @@ public class BeanConfiguration {
 	CreateProductUseCase createProductUseCase(ProductGateway productGateway, StoreGateway storeGateway,
 			CategoryGateway categoryGateway) {
 		return new CreateProductUseCaseImpl(productGateway, storeGateway, categoryGateway);
+	}
+
+	@Bean
+	ListAllProductsUseCase listAllProductsUseCase(ProductGateway productGateway) {
+		return new ListAllProductsUseCaseImpl(productGateway);
+	}
+
+	@Bean
+	FindProductByIdUseCase findProductByIdUseCase(ProductGateway productGateway) {
+		return new FindProductByIdUseCaseImpl(productGateway);
+	}
+
+	@Bean
+	FindProductByNameUseCase findProductByNameUseCase(ProductGateway productGateway) {
+		return new FindProductByNameUseCaseImpl(productGateway);
+	}
+
+	@Bean
+	UpdateProductUseCase updateProductUseCase(ProductGateway productGateway) {
+		return new UpdateProductUseCaseImpl(productGateway);
+	}
+
+	@Bean
+	DeleteProductUseCase deleteProductUseCase(ProductGateway productGateway) {
+		return new DeleteProductUseCaseImpl(productGateway);
 	}
 }
