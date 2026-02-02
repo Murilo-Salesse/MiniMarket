@@ -84,7 +84,7 @@ public class UserController {
 		 * Pega o UserRequest e passa pelo UserMapper Domain para transformar em
 		 * entidade PURA do banco 
 		 * o Controller chama o createUserUseCase.execute passando
-		 * um usuario PURO para ele O controller não sabe o que acontece daqui para
+		 * um usuario PURO para ele, O controller não sabe o que acontece daqui para
 		 * frente (depois de chamar o useCase) Ai vai la para o arquivo
 		 * CreateUseCaseImpl
 		 * 

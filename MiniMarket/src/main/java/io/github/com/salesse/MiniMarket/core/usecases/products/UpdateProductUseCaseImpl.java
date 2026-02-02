@@ -24,11 +24,26 @@ public class UpdateProductUseCaseImpl implements UpdateProductUseCase {
 			throw new NotFoundException("Produto não encontrado");
 		}
 
-		existingProduct.setName(product.getName());
-		existingProduct.setDescription(product.getDescription());
-		existingProduct.setPrice(product.getPrice());
+		if (product.getName() != null) {
+			existingProduct.setName(product.getName());
+		}
 
-		return productGateway.update(id, product);
+		if (product.getDescription() != null) {
+			existingProduct.setDescription(product.getDescription());
+		}
+
+		if (product.getPrice() != null) {
+			existingProduct.setPrice(product.getPrice());
+		}
+
+		if (product.getActive() != null) {
+			existingProduct.setActive(product.getActive());
+		}
+
+		if (product.getCategoryId() != null) {
+			existingProduct.setCategoryId(product.getCategoryId());
+		}
+
+		return productGateway.update(existingProduct);
 	}
-
 }

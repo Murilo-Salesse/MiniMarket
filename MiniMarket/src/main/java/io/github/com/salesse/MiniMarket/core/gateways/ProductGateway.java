@@ -11,7 +11,7 @@ public interface ProductGateway {
 
 	Product findById(UUID product);
 
-	Product update(UUID id, Product product);
+	Product update(Product product);
 
 	List<Product> findByName(String name);
 

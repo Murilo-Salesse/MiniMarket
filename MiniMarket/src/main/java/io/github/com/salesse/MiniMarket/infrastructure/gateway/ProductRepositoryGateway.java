@@ -50,22 +50,13 @@ public class ProductRepositoryGateway implements ProductGateway {
 	}
 
 	@Override
-	public Product update(UUID id, Product product) {
+	public Product update(Product product) {
 
-		ProductEntity founded = productRepository.findById(id)
-				.orElseThrow(() -> new NotFoundException("ID não encontrado"));
+		ProductEntity entity = ProductEntityMapper.toEntity(product);
 
-		founded.setStoreId(product.getStoreId());
-		founded.setName(product.getName());
-		founded.setDescription(product.getDescription());
-		founded.setPrice(product.getPrice());
-		founded.setActive(product.getActive());
-		founded.setDeletedAt(product.getDeletedAt());
+		ProductEntity saved = productRepository.save(entity);
 
-		productRepository.save(founded);
-
-		return ProductEntityMapper.toDomain(founded);
-
+		return ProductEntityMapper.toDomain(saved);
 	}
 
 }

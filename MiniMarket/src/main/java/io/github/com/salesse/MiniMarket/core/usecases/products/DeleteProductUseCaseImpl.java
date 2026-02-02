@@ -18,7 +18,7 @@ public class DeleteProductUseCaseImpl implements DeleteProductUseCase {
 	public Void execute(UUID id) {
 		Product product = productGateway.findById(id);
 		product.deactivate();
-		productGateway.update(id, product);
+		productGateway.update(product);
 
 		return null;
 	}

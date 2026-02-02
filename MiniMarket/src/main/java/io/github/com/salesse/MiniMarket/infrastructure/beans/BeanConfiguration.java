@@ -8,6 +8,7 @@ import io.github.com.salesse.MiniMarket.core.gateways.CategoryGateway;
 import io.github.com.salesse.MiniMarket.core.gateways.LoginGateway;
 import io.github.com.salesse.MiniMarket.core.gateways.ProductGateway;
 import io.github.com.salesse.MiniMarket.core.gateways.RoleGateway;
+import io.github.com.salesse.MiniMarket.core.gateways.StockGateway;
 import io.github.com.salesse.MiniMarket.core.gateways.StoreGateway;
 import io.github.com.salesse.MiniMarket.core.gateways.TokenGateway;
 import io.github.com.salesse.MiniMarket.core.gateways.UserGateway;
@@ -37,6 +38,8 @@ import io.github.com.salesse.MiniMarket.core.usecases.products.ListAllProductsUs
 import io.github.com.salesse.MiniMarket.core.usecases.products.ListAllProductsUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.products.UpdateProductUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.products.UpdateProductUseCaseImpl;
+import io.github.com.salesse.MiniMarket.core.usecases.stock.CreateStockUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.stock.CreateStockUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.CreateStoreUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.CreateStoreUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.DeleteStoreUseCase;
@@ -203,5 +206,11 @@ public class BeanConfiguration {
 	@Bean
 	DeleteProductUseCase deleteProductUseCase(ProductGateway productGateway) {
 		return new DeleteProductUseCaseImpl(productGateway);
+	}
+
+	@Bean
+	CreateStockUseCase createStockUseCase(StockGateway stockGateway, StoreGateway storeGateway,
+			ProductGateway productGateway) {
+		return new CreateStockUseCaseImpl(stockGateway, storeGateway, productGateway);
 	}
 }
