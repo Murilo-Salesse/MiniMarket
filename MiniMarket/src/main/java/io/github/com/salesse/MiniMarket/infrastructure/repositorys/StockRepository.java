@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import io.github.com.salesse.MiniMarket.infrastructure.persistence.StockEntity;
 
 @Repository
-public interface StockRepository extends JpaRepository<StockEntity, UUID>{
+public interface StockRepository extends JpaRepository<StockEntity, UUID> {
 
 }

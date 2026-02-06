@@ -40,6 +40,8 @@ import io.github.com.salesse.MiniMarket.core.usecases.products.UpdateProductUseC
 import io.github.com.salesse.MiniMarket.core.usecases.products.UpdateProductUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.stock.CreateStockUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.stock.CreateStockUseCaseImpl;
+import io.github.com.salesse.MiniMarket.core.usecases.stock.ListAllStocksUseCase;
+import io.github.com.salesse.MiniMarket.core.usecases.stock.ListAllStocksUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.CreateStoreUseCase;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.CreateStoreUseCaseImpl;
 import io.github.com.salesse.MiniMarket.core.usecases.stores.DeleteStoreUseCase;
@@ -213,4 +215,10 @@ public class BeanConfiguration {
 			ProductGateway productGateway) {
 		return new CreateStockUseCaseImpl(stockGateway, storeGateway, productGateway);
 	}
+
+	@Bean
+	ListAllStocksUseCase listAllStocksUseCase(StockGateway stockGateway) {
+		return new ListAllStocksUseCaseImpl(stockGateway);
+	}
+
 }

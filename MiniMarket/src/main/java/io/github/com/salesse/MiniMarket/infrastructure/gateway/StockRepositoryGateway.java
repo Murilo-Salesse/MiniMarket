@@ -1,5 +1,8 @@
 package io.github.com.salesse.MiniMarket.infrastructure.gateway;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Component;
 
 import io.github.com.salesse.MiniMarket.core.entities.Stock;
@@ -21,5 +24,11 @@ public class StockRepositoryGateway implements StockGateway {
 	public Stock create(Stock stock) {
 		return StockEntityMapper.toDomain(stockRepository.save(StockEntityMapper.toEntity(stock)));
 	}
+
+	@Override
+	public List<Stock> listAll() {
+		return stockRepository.findAll().stream().map(StockEntityMapper::toDomain).collect(Collectors.toList());
+	}
+
 
 }
